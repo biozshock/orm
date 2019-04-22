@@ -20,7 +20,7 @@ use Doctrine\Tests\Models\ECommerce\ECommerceFeature;
 use Doctrine\Tests\Models\FriendObject\ComparableObject;
 use Doctrine\Tests\Models\ProxySpecifics\FuncGetArgs;
 use Doctrine\Tests\OrmTestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use ProxyManager\Proxy\GhostObjectInterface;
 use stdClass;
 use function json_encode;
@@ -247,7 +247,7 @@ class ProxyFactoryTest extends OrmTestCase
 
     public function testFriendObjectsDoNotLazyLoadIfNotAccessingLazyState() : void
     {
-        /** @var BasicEntityPersister|PHPUnit_Framework_MockObject_MockObject $persister */
+        /** @var BasicEntityPersister|\PHPUnit\Framework\MockObject\MockObject $persister */
         $persister = $this->createMock(BasicEntityPersister::class);
         $persister->expects(self::never())->method('loadById');
 
@@ -271,7 +271,7 @@ class ProxyFactoryTest extends OrmTestCase
 
     public function testFriendObjectsLazyLoadWhenAccessingLazyState() : void
     {
-        /** @var BasicEntityPersister|PHPUnit_Framework_MockObject_MockObject $persister */
+        /** @var BasicEntityPersister|\PHPUnit\Framework\MockObject\MockObject $persister */
         $persister = $this
             ->getMockBuilder(BasicEntityPersister::class)
             ->setConstructorArgs([$this->emMock, $this->emMock->getClassMetadata(ComparableObject::class)])
@@ -322,7 +322,7 @@ class ProxyFactoryTest extends OrmTestCase
 
     public function testProxyMethodsSupportFuncGetArgsLogic() : void
     {
-        /** @var BasicEntityPersister|PHPUnit_Framework_MockObject_MockObject $persister */
+        /** @var BasicEntityPersister|\PHPUnit\Framework\MockObject\MockObject $persister */
         $persister = $this->createMock(BasicEntityPersister::class);
         $persister->expects(self::never())->method('loadById');
 

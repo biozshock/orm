@@ -414,9 +414,9 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(2, $result);
 
-        self::assertInternalType('array', $result);
-        self::assertInternalType('array', $result[0]);
-        self::assertInternalType('array', $result[1]);
+        self::assertIsArray($result);
+        self::assertIsArray($result[0]);
+        self::assertIsArray($result[1]);
 
         // first user => 2 phonenumbers
         self::assertEquals(2, $result[0]['numPhones']);
@@ -478,9 +478,9 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(2, $result);
 
-        self::assertInternalType('array', $result);
-        self::assertInternalType('array', $result[0]);
-        self::assertInternalType('array', $result[1]);
+        self::assertIsArray($result);
+        self::assertIsArray($result[0]);
+        self::assertIsArray($result[1]);
 
         self::assertInstanceOf(CmsUser::class, $result[0][$userEntityKey]);
         self::assertInstanceOf(PersistentCollection::class, $result[0][$userEntityKey]->phonenumbers);
@@ -558,9 +558,9 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(2, $result);
 
-        self::assertInternalType('array', $result);
-        self::assertInternalType('array', $result[1]);
-        self::assertInternalType('array', $result[2]);
+        self::assertIsArray($result);
+        self::assertIsArray($result[1]);
+        self::assertIsArray($result[2]);
 
         // test the scalar values
         self::assertEquals('ROMANB', $result[1]['nameUpper']);
@@ -672,9 +672,9 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(2, $result);
 
-        self::assertInternalType('array', $result);
-        self::assertInternalType('array', $result[0]);
-        self::assertInternalType('array', $result[1]);
+        self::assertIsArray($result);
+        self::assertIsArray($result[0]);
+        self::assertIsArray($result[1]);
 
         self::assertInstanceOf(CmsUser::class, $result[0][$userEntityKey]);
         self::assertInstanceOf(PersistentCollection::class, $result[0][$userEntityKey]->phonenumbers);
@@ -802,9 +802,9 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(2, $result);
 
-        self::assertInternalType('array', $result);
-        self::assertInternalType('array', $result[0]);
-        self::assertInternalType('array', $result[1]);
+        self::assertIsArray($result);
+        self::assertIsArray($result[0]);
+        self::assertIsArray($result[1]);
 
         self::assertInstanceOf(CmsUser::class, $result[0][$userEntityKey]);
         self::assertInstanceOf(CmsUser::class, $result[1][$userEntityKey]);
@@ -992,8 +992,8 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(2, $result);
 
-        self::assertInternalType('array', $result[0]);
-        self::assertInternalType('array', $result[1]);
+        self::assertIsArray($result[0]);
+        self::assertIsArray($result[1]);
 
         self::assertEquals(1, $result[0]['id']);
         self::assertEquals('romanb', $result[0]['name']);
@@ -1104,7 +1104,7 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(1, $result);
 
-        self::assertInternalType('array', $result[0]);
+        self::assertIsArray($result[0]);
         self::assertInstanceOf(ECommerceProduct::class, $result[0]['product']);
     }
 
@@ -1227,10 +1227,10 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(2, $result);
 
-        self::assertInternalType('array', $result[0]);
+        self::assertIsArray($result[0]);
         self::assertInstanceOf(CmsUser::class, $result[0]['user']);
 
-        self::assertInternalType('array', $result[1]);
+        self::assertIsArray($result[1]);
         self::assertInstanceOf(CmsUser::class, $result[1]['user']);
 
         self::assertEquals(0, $result[0]['user']->articles->count());
@@ -1633,9 +1633,9 @@ class ObjectHydratorTest extends HydrationTestCase
 
         self::assertCount(2, $result);
 
-        self::assertInternalType('array', $result[0]);
+        self::assertIsArray($result[0]);
         self::assertInstanceOf(CmsUser::class, $result[0]['user']);
-        self::assertInternalType('array', $result[1]);
+        self::assertIsArray($result[1]);
         self::assertInstanceOf(CmsUser::class, $result[1]['user']);
 
         self::assertCount(2, $result[0]['user']->groups);
@@ -1900,11 +1900,11 @@ class ObjectHydratorTest extends HydrationTestCase
 
     /**
      * @group DDC-1470
-     * @expectedException \Doctrine\ORM\Internal\Hydration\HydrationException
-     * @expectedExceptionMessage The meta mapping for the discriminator column "c_discr" is missing for "Doctrine\Tests\Models\Company\CompanyFixContract" using the DQL alias "c".
      */
     public function testMissingMetaMappingException() : void
     {
+        $this->expectException('Doctrine\ORM\Internal\Hydration\HydrationException');
+        $this->expectExceptionMessage('The meta mapping for the discriminator column "c_discr" is missing for "Doctrine\Tests\Models\Company\CompanyFixContract" using the DQL alias "c".');
         $rsm = new ResultSetMapping();
 
         $rsm->addEntityResult(CompanyFixContract::class, 'c');
@@ -1926,11 +1926,11 @@ class ObjectHydratorTest extends HydrationTestCase
 
     /**
      * @group DDC-1470
-     * @expectedException \Doctrine\ORM\Internal\Hydration\HydrationException
-     * @expectedExceptionMessage The discriminator column "discr" is missing for "Doctrine\Tests\Models\Company\CompanyEmployee" using the DQL alias "e".
      */
     public function testMissingDiscriminatorColumnException() : void
     {
+        $this->expectException('Doctrine\ORM\Internal\Hydration\HydrationException');
+        $this->expectExceptionMessage('The discriminator column "discr" is missing for "Doctrine\Tests\Models\Company\CompanyEmployee" using the DQL alias "e".');
         $rsm = new ResultSetMapping();
 
         $rsm->addEntityResult(CompanyFixContract::class, 'c');
@@ -1959,11 +1959,11 @@ class ObjectHydratorTest extends HydrationTestCase
 
     /**
      * @group DDC-3076
-     * @expectedException \Doctrine\ORM\Internal\Hydration\HydrationException
-     * @expectedExceptionMessage The discriminator value "subworker" is invalid. It must be one of "person", "manager", "employee".
      */
     public function testInvalidDiscriminatorValueException() : void
     {
+        $this->expectException('Doctrine\ORM\Internal\Hydration\HydrationException');
+        $this->expectExceptionMessage('The discriminator value "subworker" is invalid. It must be one of "person", "manager", "employee".');
         $rsm = new ResultSetMapping();
 
         $rsm->addEntityResult(CompanyPerson::class, 'p');

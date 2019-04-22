@@ -14,7 +14,7 @@ use Doctrine\ORM\Repository\DefaultRepositoryFactory;
 use Doctrine\Tests\DoctrineTestCase;
 use Doctrine\Tests\Models\DDC753\DDC753DefaultRepository;
 use Doctrine\Tests\Models\DDC869\DDC869PaymentRepository;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 
 /**
  * Tests for {@see \Doctrine\ORM\Repository\DefaultRepositoryFactory}
@@ -23,16 +23,16 @@ use PHPUnit_Framework_MockObject_MockObject;
  */
 class DefaultRepositoryFactoryTest extends DoctrineTestCase
 {
-    /** @var EntityManagerInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var EntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $entityManager;
 
-    /** @var Configuration|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Configuration|\PHPUnit\Framework\MockObject\MockObject */
     private $configuration;
 
     /** @var DefaultRepositoryFactory */
     private $repositoryFactory;
 
-    /** @var ClassMetadataBuildingContext|PHPUnit_Framework_MockObject_MockObject */
+    /** @var ClassMetadataBuildingContext|\PHPUnit\Framework\MockObject\MockObject */
     private $metadataBuildingContext;
 
     /**
@@ -136,7 +136,7 @@ class DefaultRepositoryFactoryTest extends DoctrineTestCase
     }
 
     /**
-     * @return EntityManagerInterface|PHPUnit_Framework_MockObject_MockObject
+     * @return EntityManagerInterface|\PHPUnit\Framework\MockObject\MockObject
      */
     private function createEntityManager()
     {
